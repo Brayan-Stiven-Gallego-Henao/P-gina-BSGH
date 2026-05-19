@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Brayan Steven Gallego Henao | Portal Profesional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at 20% 30%, #0a0f1e, #03050b);
+            color: #eef5ff;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(20, 30, 45, 0.55);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            border: 1px solid rgba(100, 150, 255, 0.2);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+            transition: all 0.25s ease;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Top bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: rgba(5, 10, 20, 0.7);
+            backdrop-filter: blur(8px);
+            padding: 0.8rem 2rem;
+            border-radius: 3rem;
+            border: 1px solid rgba(72, 120, 255, 0.3);
+            position: relative;
+            z-index: 100;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            background: rgba(255,255,255,0.08);
+            padding: 0.6rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.2s;
+            color: #ccdeff;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .social-btn:hover {
+            background: #1e2a47;
+            color: white;
+            border-color: #3b82f6;
+            transform: scale(1.02);
+        }
+
+        .auth-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        #loginBtn {
+            background: linear-gradient(135deg, #1e2a5e, #0f172a);
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .user-avatar {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(59,130,246,0.2);
+            padding: 0.3rem 1rem 0.3rem 0.5rem;
+            border-radius: 3rem;
+            backdrop-filter: blur(4px);
+            z-index: 200;
+        }
+
+        .avatar-circle {
+            width: 40px;
+            height: 40px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        /* Dropdown menu - ahora con z-index altísimo y posicionamiento corregido */
+        .dropdown-menu {
+            position: absolute;
+            top: 55px;
+            right: 0;
+            background: #0f172aee;
+            backdrop-filter: blur(20px);
+            border-radius: 1.2rem;
+            width: 280px;
+            padding: 1.2rem;
+            border: 1px solid #3b82f6;
+            display: none;
+            z-index: 9999;
+            flex-direction: column;
+            gap: 0.8rem;
+            box-shadow: 0 20px 35px -10px black;
+        }
+
+        .dropdown-menu.show {
+            display: flex;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #cbd5ff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            padding: 0.3rem 0;
+        }
+
+        .contact-item:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* Tarjetas de tecnología */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 3rem 0 1.5rem;
+            background: linear-gradient(135deg, #ffffff, #94a3f8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .tech-card {
+            background: rgba(18, 25, 45, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 1.8rem;
+            padding: 1.8rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(72, 120, 255, 0.2);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .tech-card i {
+            font-size: 3rem;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+        }
+
+        .tech-card h3 {
+            font-size: 1.7rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .tech-card p {
+            color: #cbd5e6;
+            font-size: 0.9rem;
+        }
+
+        /* Tooltip personalizado que aparece al hacer hover - con z-index super alto */
+        .custom-tooltip {
+            position: fixed;
+            background: #0a0f1cd9;
+            backdrop-filter: blur(16px);
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            width: 280px;
+            border-left: 4px solid #3b82f6;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+            z-index: 10000;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #e2e8ff;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            opacity: 0;
+        }
+
+        .custom-tooltip.show {
+            opacity: 1;
+        }
+
+        /* Botón seguir */
+        .seguir-wrapper {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .btn-seguir {
+            background: linear-gradient(95deg, #1e293b, #0f172a);
+            border: 1px solid #3b82f6;
+            padding: 1rem 3rem;
+            border-radius: 4rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* Sección comida */
+        .comida-section {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .dish-card {
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(250, 180, 80, 0.4);
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #facc15;
+            margin: 0.5rem 0;
+        }
+
+        /* WhatsApp flotante */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25D366;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            z-index: 999;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: #7c8db0;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(6px);
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+        }
+
+        .modal-content {
+            background: #0c1122e6;
+            backdrop-filter: blur(20px);
+            width: 90%;
+            max-width: 420px;
+            padding: 2rem;
+            border-radius: 2rem;
+            border-top: 2px solid #3b82f6;
+        }
+
+        .modal-content input {
+            width: 100%;
+            margin: 0.6rem 0;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            border: 1px solid #2d3a60;
+            background: #0b1020;
+            color: white;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn-modal {
+            flex: 1;
+            background: #1e2a4a;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="top-bar">
+        <div class="social-buttons">
+            <a href="https://www.facebook.com/share/1CfBYYrYQ6/" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="https://www.instagram.com/brayan_stiven_gallego_henao?igsh=N203ZHczb2N2aXFl" target="_blank" class="social-btn"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.tiktok.com/@mr.bsgh?_r=1&_t=ZS-96V9duwfGsS" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i> TikTok</a>
+        </div>
+        <div class="auth-area" id="authArea">
+            <button id="loginBtn"><i class="fas fa-user-circle"></i> Iniciar sesión</button>
+        </div>
+    </div>
+
+    <div id="mainContent">
+        <h1 class="section-title">⚡ DOMINA LA TECNOLOGÍA ⚡</h1>
+        <div class="cards-grid">
+            <div class="tech-card" data-tooltip="Kali Linux: Distribución basada en Debian especializada en ciberseguridad. Incluye más de 600 herramientas para pruebas de penetración, análisis forense y reverse engineering. Ideal para ethical hacking y auditorías.">
+                <i class="fab fa-linux"></i><h3>Kali Linux</h3><p>Pentesting, seguridad informática y herramientas éticas.</p>
+            </div>
+            <div class="tech-card" data-tooltip="HTML5: Lenguaje de marcado que estructura el contenido web. Usa etiquetas semánticas como &lt;header&gt;, &lt;article&gt;, &lt;section&gt;. Compatible con APIs modernas (geolocalización, almacenamiento local, canvas). Base de toda aplicación web.">
+                <i class="fab fa-html5"></i><h3>HTML5</h3><p>Estructura semántica moderna, la base de toda web profesional.</p>
+            </div>
+            <div class="tech-card" data-tooltip="Python: Lenguaje de alto nivel, multiparadigma. Ideal para Data Science (Pandas, NumPy), Machine Learning (TensorFlow, PyTorch), Backend (Django, Flask) y automatización. Sintaxis limpia y gran comunidad.">
+                <i class="fab fa-python"></i><h3>Python</h3><p>IA, ciencia de datos, backend robusto y automatización.</p>
+            </div>
+            <div class="tech-card" data-tooltip="JavaScript: Motor de interactividad web. Asíncrono con Promises/Async-Await. Manipulación del DOM, eventos, fetch API. Frameworks: React, Vue, Angular. También backend con Node.js. Lenguaje universal del navegador.">
+                <i class="fab fa-js"></i><h3>JavaScript</h3><p>Interactividad, animaciones y ecosistema full-stack.</p>
+            </div>
+        </div>
+        <div class="seguir-wrapper">
+            <button class="btn-seguir" id="btnSeguir"><i class="fas fa-arrow-right"></i> SEGUIR →</button>
+        </div>
+    </div>
+
+    <div id="comidaSection" class="comida-section">
+        <h1 class="section-title">🍽️ GASTRONOMÍA URBANA 🍽️</h1>
+        <div class="menu-grid">
+            <div class="dish-card"><i class="fas fa-hamburger" style="font-size: 2.5rem; color:#f97316;"></i><h3>Salchipapa</h3><p>Papas crujientes, salchicha especial, salsas de la casa.</p><div class="price">$12.900 COP</div></div>
+            <div class="dish-card"><i class="fas fa-hotdog"></i><h3>Perro Caliente</h3><p>Salchicha premium, tocineta, papitas, piña, queso fundido.</p><div class="price">$14.500 COP</div></div>
+            <div class="dish-card"><i class="fas fa-drumstick-bite"></i><h3>Empanadas</h3><p>Carne, pollo o mixtas, acompañadas de ají casero.</p><div class="price">$3.500 COP (unidad)</div></div>
+            <div class="dish-card"><i class="fas fa-utensils"></i><h3>Bandeja Paisa</h3><p>Frijoles, arroz, chicharrón, huevo, aguacate, arepa.</p><div class="price">$28.900 COP</div></div>
+        </div>
+        <div class="seguir-wrapper">
+            <button class="btn-seguir" id="btnVolverTecnologia"><i class="fas fa-arrow-left"></i> Volver a Tecnología</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Brayan Steven Gallego Henao — Arquitectura de élite & diseño profesional</p>
+        <p><i class="fas fa-calendar-alt"></i> Fundación: 2025 | <i class="fas fa-envelope"></i> brayanstivengallegohenao@gmail.com</p>
+    </footer>
+</div>
+
+<a href="https://wa.me/573128651104?text=Hola%20Brayan,%20vi%20tu%20portafolio%20y%20me%20gustaría%20contactarte" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<div id="authModal" class="modal">
+    <div class="modal-content">
+        <h3 id="modalTitle">Iniciar Sesión</h3>
+        <input type="text" id="loginName" placeholder="Nombre completo" style="display:none;">
+        <input type="email" id="loginEmail" placeholder="Correo electrónico">
+        <input type="password" id="loginPassword" placeholder="Contraseña">
+        <div class="modal-buttons">
+            <button class="btn-modal" id="modalActionBtn">Ingresar</button>
+            <button class="btn-modal" id="toggleAuthBtn">¿Crear cuenta?</button>
+            <button class="btn-modal" id="closeModalBtn">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tooltip flotante para tarjetas (sin que se tape)
+    let tooltipElement = null;
+    function initTooltips() {
+        tooltipElement = document.createElement('div');
+        tooltipElement.className = 'custom-tooltip';
+        document.body.appendChild(tooltipElement);
+        const cards = document.querySelectorAll('.tech-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', (e) => {
+                const text = card.getAttribute('data-tooltip');
+                if(text) {
+                    tooltipElement.innerHTML = `<i class="fas fa-info-circle" style="margin-right:8px; color:#3b82f6;"></i> ${text}`;
+                    tooltipElement.classList.add('show');
+                    updateTooltipPosition(e);
+                }
+            });
+            card.addEventListener('mousemove', updateTooltipPosition);
+            card.addEventListener('mouseleave', () => {
+                tooltipElement.classList.remove('show');
+            });
+        });
+    }
+    function updateTooltipPosition(e) {
+        if(tooltipElement && tooltipElement.classList.contains('show')) {
+            let left = e.clientX + 20;
+            let top = e.clientY - 40;
+            if(left + 300 > window.innerWidth) left = e.clientX - 310;
+            if(top + 200 > window.innerHeight) top = e.clientY - 180;
+            tooltipElement.style.left = left + 'px';
+            tooltipElement.style.top = top + 'px';
+        }
+    }
+
+    // Autenticación
+    let currentUser = null;
+    let isLoginMode = true;
+    const authArea = document.getElementById('authArea');
+    const loginBtnElement = document.getElementById('loginBtn');
+    const modal = document.getElementById('authModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const loginNameField = document.getElementById('loginName');
+    const loginEmail = document.getElementById('loginEmail');
+    const loginPassword = document.getElementById('loginPassword');
+    const modalActionBtn = document.getElementById('modalActionBtn');
+    const toggleAuthBtn = document.getElementById('toggleAuthBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    function loadUserFromStorage() {
+        const stored = localStorage.getItem('techlab_user');
+        if(stored) {
+            currentUser = JSON.parse(stored);
+            renderAuthUI();
+        }
+    }
+
+    function renderAuthUI() {
+        if(currentUser) {
+            const initial = currentUser.name.charAt(0).toUpperCase();
+            authArea.innerHTML = `
+                <div class="user-avatar" id="userMenuBtn">
+                    <div class="avatar-circle">${initial}</div>
+                    <span class="user-name-short">${currentUser.name.split(' ')[0]}</span>
+                    <i class="fas fa-chevron-down"></i>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <div style="border-bottom:1px solid #2d3a6e; padding-bottom:8px;"><strong>${currentUser.name}</strong><br><span style="font-size:12px;">${currentUser.email}</span></div>
+                        <a class="contact-item" href="mailto:brayanstivengallegohenao@gmail.com"><i class="fas fa-envelope"></i> Creador: Brayan Steven</a>
+                        <a class="contact-item" href="https://wa.me/573128651104" target="_blank"><i class="fab fa-whatsapp"></i> +57 312 8651104</a>
+                        <a class="contact-item" href="https://www.facebook.com/share/1CfBYYrYQ6/" target="_blank"><i class="fab fa-facebook"></i> Facebook Oficial</a>
+                        <a class="contact-item" href="https://www.instagram.com/brayan_stiven_gallego_henao" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a class="contact-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                    </div>
+                </div>
+            `;
+            const userMenuBtn = document.getElementById('userMenuBtn');
+            const dropdown = document.getElementById('dropdownMenu');
+            if(userMenuBtn) {
+                userMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    dropdown.classList.toggle('show');
+                });
+                document.addEventListener('click', () => dropdown.classList.remove('show'));
+            }
+            const logoutBtn = document.getElementById('logoutBtn');
+            if(logoutBtn) logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('techlab_user');
+                currentUser = null;
+                renderAuthUI();
+            });
+        } else {
+            authArea.innerHTML = `<button id="loginBtn"><i class="fas fa-user-circle"></i> Iniciar sesión</button>`;
+            const newLoginBtn = document.getElementById('loginBtn');
+            if(newLoginBtn) newLoginBtn.addEventListener('click', openModal);
+        }
+    }
+
+    function openModal() {
+        isLoginMode = true;
+        modalTitle.innerText = 'Iniciar Sesión';
+        loginNameField.style.display = 'none';
+        modalActionBtn.innerText = 'Ingresar';
+        toggleAuthBtn.innerText = '¿Crear cuenta?';
+        loginEmail.value = '';
+        loginPassword.value = '';
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() { modal.style.display = 'none'; }
+
+    function handleAuth() {
+        const email = loginEmail.value.trim();
+        const password = loginPassword.value.trim();
+        if(!email || !password) { alert("Completa correo y contraseña"); return; }
+
+        if(isLoginMode) {
+            const users = JSON.parse(localStorage.getItem('techlab_users')) || [];
+            const found = users.find(u => u.email === email && u.password === password);
+            if(found) {
+                currentUser = { name: found.name, email: found.email };
+                localStorage.setItem('techlab_user', JSON.stringify(currentUser));
+                renderAuthUI();
+                closeModal();
+            } else {
+                alert("Credenciales incorrectas. Regístrate.");
+            }
+        } else {
+            const fullName = loginNameField.value.trim();
+            if(!fullName) { alert("Ingresa tu nombre completo"); return; }
+            const users = JSON.parse(localStorage.getItem('techlab_users')) || [];
+            if(users.find(u => u.email === email)) { alert("Correo ya registrado"); return; }
+            const newUser = { name: fullName, email: email, password: password };
+            users.push(newUser);
+            localStorage.setItem('techlab_users', JSON.stringify(users));
+            currentUser = { name: fullName, email: email };
+            localStorage.setItem('techlab_user', JSON.stringify(currentUser));
+            renderAuthUI();
+            closeModal();
+        }
+    }
+
+    function toggleMode() {
+        isLoginMode = !isLoginMode;
+        if(isLoginMode) {
+            modalTitle.innerText = 'Iniciar Sesión';
+            loginNameField.style.display = 'none';
+            modalActionBtn.innerText = 'Ingresar';
+            toggleAuthBtn.innerText = '¿Crear cuenta?';
+        } else {
+            modalTitle.innerText = 'Crear Cuenta';
+            loginNameField.style.display = 'block';
+            modalActionBtn.innerText = 'Registrarme';
+            toggleAuthBtn.innerText = '← Volver a Iniciar Sesión';
+        }
+    }
+
+    // Mostrar/ocultar secciones
+    const mainContentDiv = document.getElementById('mainContent');
+    const comidaSection = document.getElementById('comidaSection');
+    const btnSeguir = document.getElementById('btnSeguir');
+    const btnVolver = document.getElementById('btnVolverTecnologia');
+
+    function showComida() { mainContentDiv.style.display = 'none'; comidaSection.style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    function showTecnologia() { mainContentDiv.style.display = 'block'; comidaSection.style.display = 'none'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    if(btnSeguir) btnSeguir.addEventListener('click', showComida);
+    if(btnVolver) btnVolver.addEventListener('click', showTecnologia);
+
+    // Event listeners
+    if(loginBtnElement) loginBtnElement.addEventListener('click', openModal);
+    modalActionBtn.addEventListener('click', handleAuth);
+    toggleAuthBtn.addEventListener('click', toggleMode);
+    closeModalBtn.addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+    loadUserFromStorage();
+    showTecnologia();
+    initTooltips();
+</script>
+</body>
+</html>
