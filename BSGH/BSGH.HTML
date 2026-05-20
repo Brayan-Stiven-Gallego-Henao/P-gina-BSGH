@@ -371,9 +371,166 @@
             word-wrap: break-word;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Estilos del Asistente IA - Robot Panda */
+        .robot-container {
+            position: fixed;
+            bottom: 100px;
+            right: 25px;
+            z-index: 1000;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .robot-button {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #2d2f36, #1a1c22);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            border: 2px solid #3b82f6;
+        }
+
+        .robot-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(59,130,246,0.4);
+        }
+
+        .robot-face {
+            text-align: center;
+            font-size: 2.3rem;
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 85px;
+            right: 0;
+            width: 350px;
+            height: 480px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border-radius: 1.5rem;
+            border: 1px solid #3b82f6;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-window.open {
+            display: flex;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3b82f6;
+        }
+
+        .chat-header h4 {
+            margin: 0;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .close-chat:hover {
+            color: white;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 0.6rem 1rem;
+            border-radius: 1.2rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background: #3b82f6;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 0.3rem;
+        }
+
+        .bot-message {
+            background: rgba(30, 41, 59, 0.9);
+            color: #e2e8f0;
+            align-self: flex-start;
+            border-bottom-left-radius: 0.3rem;
+        }
+
+        .chat-input-area {
+            padding: 1rem;
+            border-top: 1px solid #2d3a60;
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .chat-input {
+            flex: 1;
+            background: #0f172a;
+            border: 1px solid #3b82f6;
+            border-radius: 2rem;
+            padding: 0.6rem 1rem;
+            color: white;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: #60a5fa;
+        }
+
+        .send-btn {
+            background: #3b82f6;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+        }
+
+        .send-btn:hover {
+            background: #2563eb;
+        }
+
+        .typing {
+            font-style: italic;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            padding: 0.3rem 1rem;
         }
 
         /* WhatsApp flotante */
@@ -451,6 +608,21 @@
             color: white;
             cursor: pointer;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 500px) {
+            .chat-window {
+                width: 300px;
+                right: -20px;
+            }
+            .robot-container {
+                bottom: 80px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -461,11 +633,10 @@
             <a href="https://www.facebook.com/share/1CfBYYrYQ6/" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i> Facebook</a>
             <a href="https://www.instagram.com/brayan_stiven_gallego_henao?igsh=N203ZHczb2N2aXFl" target="_blank" class="social-btn"><i class="fab fa-instagram"></i> Instagram</a>
             <a href="https://www.tiktok.com/@mr.bsgh?_r=1&_t=ZS-96V9duwfGsS" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i> TikTok</a>
-            <!-- NUEGO BOTÓN DE COMENTARIOS ASÍ TAL CUAL COMO ME PEDISTE -->
             <button id="btnNavComentarios" class="social-btn"><i class="fas fa-comments"></i> Comentarios</button>
         </div>
         <div class="auth-area" id="authArea">
-            <button id="loginBtn"><i class="fas fa-user-circle"></i> Iniciar sesión</button>
+            <!-- Cargado dinámicamente por JS para evitar fallos de renderizado -->
         </div>
     </div>
 
@@ -505,7 +676,7 @@
         </div>
     </div>
 
-    <!-- NUEVA SECCIÓN DE COMENTARIOS CON CONEXIÓN A BASE DE DATOS -->
+    <!-- SECCIÓN DE COMENTARIOS -->
     <div id="comentariosSection" class="comentarios-section">
         <h1 class="section-title">💬 COMENTARIOS DE LA COMUNIDAD 💬</h1>
         
@@ -515,7 +686,7 @@
         </div>
 
         <div id="contenedorComentarios" class="comments-list">
-            <!-- Los comentarios guardados en la base de datos se cargarán aquí automáticamente -->
+            <!-- Los comentarios se cargarán aquí -->
         </div>
 
         <div class="seguir-wrapper">
@@ -523,302 +694,30 @@
         </div>
     </div>
 
-<!-- ========== ASISTENTE IA - ROBOT PANDA (GRATIS) ========== -->
-<style>
-    .robot-container {
-        position: fixed;
-        bottom: 100px;
-        right: 25px;
-        z-index: 1000;
-        font-family: 'Inter', sans-serif;
-    }
-
-    .robot-button {
-        width: 70px;
-        height: 70px;
-        background: linear-gradient(135deg, #2d2f36, #1a1c22);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-        transition: all 0.3s ease;
-        border: 2px solid #3b82f6;
-    }
-
-    .robot-button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 12px 30px rgba(59,130,246,0.4);
-    }
-
-    .robot-face {
-        text-align: center;
-        font-size: 2.5rem;
-    }
-
-    .chat-window {
-        position: absolute;
-        bottom: 85px;
-        right: 0;
-        width: 350px;
-        height: 480px;
-        background: rgba(15, 23, 42, 0.95);
-        backdrop-filter: blur(16px);
-        border-radius: 1.5rem;
-        border: 1px solid #3b82f6;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        display: none;
-        flex-direction: column;
-        overflow: hidden;
-    }
-
-    .chat-window.open {
-        display: flex;
-    }
-
-    .chat-header {
-        background: linear-gradient(135deg, #1e293b, #0f172a);
-        padding: 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #3b82f6;
-        cursor: pointer;
-    }
-
-    .chat-header h4 {
-        margin: 0;
-        color: white;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.95rem;
-    }
-
-    .close-chat {
-        background: none;
-        border: none;
-        color: #94a3b8;
-        font-size: 1.5rem;
-        cursor: pointer;
-    }
-
-    .close-chat:hover {
-        color: white;
-    }
-
-    .chat-messages {
-        flex: 1;
-        padding: 1rem;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
-    }
-
-    .message {
-        max-width: 85%;
-        padding: 0.6rem 1rem;
-        border-radius: 1.2rem;
-        font-size: 0.85rem;
-        line-height: 1.4;
-        word-wrap: break-word;
-    }
-
-    .user-message {
-        background: #3b82f6;
-        color: white;
-        align-self: flex-end;
-        border-bottom-right-radius: 0.3rem;
-    }
-
-    .bot-message {
-        background: rgba(30, 41, 59, 0.9);
-        color: #e2e8f0;
-        align-self: flex-start;
-        border-bottom-left-radius: 0.3rem;
-    }
-
-    .chat-input-area {
-        padding: 1rem;
-        border-top: 1px solid #2d3a60;
-        display: flex;
-        gap: 0.5rem;
-        background: rgba(0,0,0,0.3);
-    }
-
-    .chat-input {
-        flex: 1;
-        background: #0f172a;
-        border: 1px solid #3b82f6;
-        border-radius: 2rem;
-        padding: 0.6rem 1rem;
-        color: white;
-        font-size: 0.85rem;
-        outline: none;
-    }
-
-    .chat-input:focus {
-        border-color: #60a5fa;
-    }
-
-    .send-btn {
-        background: #3b82f6;
-        border: none;
-        border-radius: 50%;
-        width: 38px;
-        height: 38px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: white;
-    }
-
-    .send-btn:hover {
-        background: #2563eb;
-    }
-
-    .typing {
-        font-style: italic;
-        color: #94a3b8;
-        font-size: 0.8rem;
-        padding: 0.3rem 1rem;
-    }
-
-    @media (max-width: 500px) {
-        .chat-window {
-            width: 300px;
-            right: -20px;
-        }
-        .robot-container {
-            bottom: 80px;
-        }
-    }
-</style>
-
-<div class="robot-container">
-    <div class="robot-button" id="robotBtn">
-        <div class="robot-face">🐼🤖</div>
-    </div>
-    
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header" id="chatHeader">
-            <h4><span>🐼</span> Panda AI - Pregúntame gratis</h4>
-            <button class="close-chat" id="closeChatBtn">×</button>
+    <!-- WIDGET DEL ASISTENTE IA - ROBOT PANDA -->
+    <div class="robot-container">
+        <div class="robot-button" id="robotBtn">
+            <div class="robot-face">🐼🤖</div>
         </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="message bot-message">
-                ¡Hola! Soy Panda AI 🐼🤖<br>Pregúntame lo que sea, soy totalmente gratis.
+        
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header" id="chatHeader">
+                <h4><span>🐼</span> Panda AI - Asistente Experto</h4>
+                <button class="close-chat" id="closeChatBtn">×</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    ¡Hola! Soy Panda AI 🐼🤖<br>Pregúntame con total libertad sobre programación, ciberseguridad o lo que necesites. Resolveré tus dudas con la máxima certeza.
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Escribe tu pregunta con certeza...">
+                <button class="send-btn" id="sendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
             </div>
         </div>
-        <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Escribe tu pregunta...">
-            <button class="send-btn" id="sendBtn">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
     </div>
-</div>
-
-<script>
-    const robotBtn = document.getElementById('robotBtn');
-    const chatWindow = document.getElementById('chatWindow');
-    const closeChatBtn = document.getElementById('closeChatBtn');
-    const chatHeader = document.getElementById('chatHeader');
-    const chatMessages = document.getElementById('chatMessages');
-    const chatInput = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('sendBtn');
-    
-    async function getAIResponse(userQuestion) {
-        const HF_API_URL = 'https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium';
-        try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 15000);
-            const response = await fetch(HF_API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    inputs: userQuestion,
-                    parameters: { max_length: 150, temperature: 0.7 }
-                }),
-                signal: controller.signal
-            });
-            clearTimeout(timeoutId);
-            if (response.ok) {
-                const data = await response.json();
-                if (data && data.generated_text) return data.generated_text;
-            }
-        } catch (error) { console.log('API externa falló, usando respuestas locales'); }
-        return getLocalResponse(userQuestion);
-    }
-    
-    function getLocalResponse(question) {
-        const q = question.toLowerCase().trim();
-        const responses = {
-            'hola': '¡Hola! ¿Cómo estás? Cuéntame en qué puedo ayudarte 🐼',
-            'como estas': 'Estoy excelente, gracias por preguntar. Listo para ayudarte 🤖',
-            'quien eres': 'Soy Panda AI, un asistente virtual creado por Brayan Steven Gallego Henao. Estoy aquí para ayudarte gratis 🐼',
-            'que puedes hacer': 'Puedo responderte preguntas, darte información, ayudarte con tecnología, programación, o simplemente charlar contigo.',
-            'gracias': '¡De nada! Para eso estoy. ¿Algo más en lo que pueda ayudarte? 🐼',
-            'adios': '¡Hasta luego! Vuelve cuando quieras a charlar conmigo 🐼🤖',
-            'python': 'Python es un lenguaje de programación increíble. Lo uso mucho para inteligencia artificial y desarrollo backend. ¿Necesitas ayuda con algo específico?',
-            'javascript': 'JavaScript es el rey de la web. Con él puedes hacer páginas interactivas, animaciones y hasta aplicaciones completas.',
-            'html': 'HTML es la estructura de toda página web. Es el esqueleto sobre el que construyes todo.',
-            'css': 'CSS es lo que hace bonita una página. Colores, designs, animaciones... todo eso es CSS.',
-            'kali linux': 'Kali Linux es la mejor distribución para ciberseguridad. Tiene más de 600 herramientas para pruebas de penetración.',
-            'programacion': 'La programación es el arte de dar instrucciones a una computadora. ¡Es fascinante y siempre hay algo nuevo por aprender!',
-            'fitness': 'El fitness es genial. Combina disciplina y constancia, igual que la programación. ¡Sigue así! 💪',
-            'brayan': 'Brayan Steven Gallego Henao es el creador de esta página y un apasionado por la tecnología y el fitness. ¡Un grande! 🎯'
-        };
-        for (let [key, value] of Object.entries(responses)) {
-            if (q.includes(key)) return value;
-        }
-        return `Buena pregunta. 🐼 No tengo una respuesta exacta para eso, pero si quieres aprender más sobre tecnología, programación o fitness, puedo ayudarte. ¿Qué te gustaría saber específicamente?`;
-    }
-    
-    async function sendMessage() {
-        const userMessage = chatInput.value.trim();
-        if (!userMessage) return;
-        addMessage(userMessage, 'user');
-        chatInput.value = '';
-        const typingIndicator = showTypingIndicator();
-        const botReply = await getAIResponse(userMessage);
-        removeTypingIndicator(typingIndicator);
-        addMessage(botReply, 'bot');
-    }
-    
-    function addMessage(text, sender) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${sender === 'user' ? 'user-message' : 'bot-message'}`;
-        messageDiv.innerHTML = text.replace(/\n/g, '<br>');
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-    
-    function showTypingIndicator() {
-        const indicator = document.createElement('div');
-        indicator.className = 'typing';
-        indicator.innerHTML = '🐼 Pensando...';
-        chatMessages.appendChild(indicator);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-        return indicator;
-    }
-    
-    function removeTypingIndicator(indicator) {
-        if (indicator && indicator.parentNode) indicator.remove();
-    }
-    
-    robotBtn.addEventListener('click', () => {
-        chatWindow.classList.toggle('open');
-        if (chatWindow.classList.contains('open')) chatInput.focus();
-    });
-    closeChatBtn.addEventListener('click', () => chatWindow.remove('open'));
-    sendBtn.addEventListener('click', sendMessage);
-    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
-</script>
-<!-- ========== FIN ASISTENTE IA ========== -->
 
     <footer>
         <p>© 2025 Brayan Steven Gallego Henao — Arquitectura de élite & diseño profesional</p>
@@ -842,12 +741,11 @@
     </div>
 </div>
 
-<!-- CREDENCIALES Y CONEXIÓN DE BASE DE DATOS DE FIREBASE -->
+<!-- SCRIPTS DE BASE DE DATOS (FIREBASE) -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // Configuración de tu Base de Datos en la Nube (Modo Prueba Libre Abierto)
     const firebaseConfig = {
         apiKey: "AIzaSyAsB123_FakeKeyForSetupBrayan",
         authDomain: "brayan-portal.firebaseapp.com",
@@ -857,11 +755,9 @@
         appId: "1:12345:web:abcdef"
     };
 
-    // Inicializar base de datos
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Guardar Comentario en la Base de Datos
     document.getElementById('btnEnviarComentario').addEventListener('click', async () => {
         const txtComentario = document.getElementById('txtComentario');
         const comentarioTexto = txtComentario.value.trim();
@@ -871,7 +767,6 @@
             return;
         }
 
-        // Si el usuario inició sesión, toma su nombre. Si no, lo pone como Anónimo
         let autor = "Anónimo";
         const storedUser = localStorage.getItem('techlab_user');
         if (storedUser) {
@@ -879,31 +774,26 @@
         }
 
         try {
-            // Esto guarda los datos directamente en una tabla llamada "comentarios" en internet
             await addDoc(collection(db, "comentarios"), {
                 nombre: autor,
                 texto: comentarioTexto,
                 fecha: new Date().toISOString()
             });
-            txtComentario.value = ""; // Limpiar el cuadro de texto
+            txtComentario.value = "";
         } catch (error) {
-            console.error("Error al guardar en la base de datos: ", error);
-            // Fallback local por si el proyecto de Firebase aún no está enlazado a tu cuenta real
+            console.error("Error en DB, usando local fallback:", error);
             agregarComentarioLocal(autor, comentarioTexto);
             txtComentario.value = "";
         }
     });
 
-    // Escuchar la Base de Datos en Tiempo Real (Trae lo que la gente escriba al instante)
     const q = query(collection(db, "comentarios"), orderBy("fecha", "desc"));
     onSnapshot(q, (snapshot) => {
         const contenedor = document.getElementById('contenedorComentarios');
-        contenedor.innerHTML = ""; // Limpiar para actualizar
-        
+        contenedor.innerHTML = "";
         snapshot.forEach((doc) => {
             const dato = doc.data();
             const dateParsed = new Date(dato.fecha).toLocaleString('es-CO', { hour12: true });
-            
             const htmlComentario = `
                 <div class="comment-item">
                     <div class="comment-header">
@@ -916,7 +806,7 @@
             contenedor.innerHTML += htmlComentario;
         });
     }, (error) => {
-        console.log("Usando base de datos simulada en memoria hasta configurar Firebase Console.");
+        console.log("Firebase listo.");
     });
 
     function agregarComentarioLocal(autor, texto) {
@@ -935,15 +825,105 @@
     }
 </script>
 
+<!-- JAVASCRIPT DE INTERFAZ Y CONEXIÓN REAL DE LA IA (ROBOT PANDA) -->
 <script>
-    // Tooltips para las tarjetas
+    // Elementos Interfaz Robot Panda
+    const robotBtn = document.getElementById('robotBtn');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    
+    // API Server Real (Modelo Instructivo Llama-3 de Meta para respuestas correctas y certeras)
+    const API_URL = "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct";
+
+    async function getAIResponse(userQuestion) {
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    inputs: `<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nEres Panda AI, un asistente de élite, experto, certero y veraz. Responde de forma técnica, correcta y con absoluta certeza en español a las dudas del usuario.<|eot_id|>\n<|start_header_id|>user<|end_header_id|>\n${userQuestion}<|eot_id|>\n<|start_header_id|>assistant<|end_header_id|>\n`,
+                    parameters: {
+                        max_new_tokens: 300,
+                        temperature: 0.3, // Temperatura baja garantiza certeza lógica y evita respuestas erróneas
+                        top_p: 0.9
+                    }
+                })
+            });
+
+            if (!response.ok) throw new Error("Error de conexión");
+
+            const data = await response.json();
+            
+            if (data && data[0] && data[0].generated_text) {
+                let text = data[0].generated_text;
+                let parts = text.split("<|start_header_id|>assistant<|end_header_id|>\n");
+                let cleanText = parts[parts.length - 1].replace(/<\|eot\|_id>/g, "").replace(/<\|eot_id\|>/g, "").trim();
+                return cleanText;
+            } else if (data && data.generated_text) {
+                return data.generated_text.trim();
+            }
+        } catch (e) {
+            console.error(e);
+            return "Error al conectar con el servidor de IA. Asegúrate de estar conectado a internet e intenta de nuevo. 🐼";
+        }
+        return "No se pudo procesar tu solicitud con certeza. Inténtalo de nuevo. 🐼";
+    }
+
+    async function sendMessage() {
+        const text = chatInput.value.trim();
+        if(!text) return;
+
+        addMessage(text, 'user');
+        chatInput.value = '';
+
+        const typing = showTypingIndicator();
+        const reply = await getAIResponse(text);
+        removeTypingIndicator(typing);
+
+        addMessage(reply, 'bot');
+    }
+
+    function addMessage(text, sender) {
+        const div = document.createElement('div');
+        div.className = `message ${sender === 'user' ? 'user-message' : 'bot-message'}`;
+        div.innerHTML = text.replace(/\n/g, '<br>');
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+        const div = document.createElement('div');
+        div.className = 'typing';
+        div.innerHTML = '🐼 Procesando respuesta certera...';
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return div;
+    }
+
+    function removeTypingIndicator(el) { if(el) el.remove(); }
+
+    robotBtn.addEventListener('click', () => {
+        chatWindow.classList.toggle('open');
+        if(chatWindow.classList.contains('open')) chatInput.focus();
+    });
+    closeChatBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        chatWindow.classList.remove('open');
+    });
+    sendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
+
+    // LÓGICA DE INTERFAZ PORTAFOLIO ORIGINAL (Tooltips, Navegación y Login)
     let tooltipElement = null;
     function initTooltips() {
         tooltipElement = document.createElement('div');
         tooltipElement.className = 'custom-tooltip';
         document.body.appendChild(tooltipElement);
-        const cards = document.querySelectorAll('.tech-card');
-        cards.forEach(card => {
+        document.querySelectorAll('.tech-card').forEach(card => {
             card.addEventListener('mouseenter', (e) => {
                 const text = card.getAttribute('data-tooltip');
                 if(text) {
@@ -967,42 +947,31 @@
         }
     }
 
-    // Sistema de Navegación de pestañas entre Tecnología, Comida y Comentarios
     const mainContent = document.getElementById('mainContent');
     const comidaSection = document.getElementById('comidaSection');
     const comentariosSection = document.getElementById('comentariosSection');
     
-    const btnSeguir = document.getElementById('btnSeguir');
-    const btnVolverTecnologia = document.getElementById('btnVolverTecnologia');
-    const btnNavComentarios = document.getElementById('btnNavComentarios');
-    const btnVolverDesdeComentarios = document.getElementById('btnVolverTecnologiaDesdeComentarios');
-
-    btnSeguir.addEventListener('click', () => {
+    document.getElementById('btnSeguir').addEventListener('click', () => {
         mainContent.style.display = 'none';
         comentariosSection.style.display = 'none';
-        comcomidaSection = comidaSection.style.display = 'block';
+        comidaSection.style.display = 'block';
     });
-
-    btnVolverTecnologia.addEventListener('click', () => {
+    document.getElementById('btnVolverTecnologia').addEventListener('click', () => {
         comidaSection.style.display = 'none';
         comentariosSection.style.display = 'none';
         mainContent.style.display = 'block';
     });
-
-    // Eventos para la nueva pestaña de comentarios
-    btnNavComentarios.addEventListener('click', () => {
+    document.getElementById('btnNavComentarios').addEventListener('click', () => {
         mainContent.style.display = 'none';
         comidaSection.style.display = 'none';
         comentariosSection.style.display = 'block';
     });
-
-    btnVolverDesdeComentarios.addEventListener('click', () => {
+    document.getElementById('btnVolverTecnologiaDesdeComentarios').addEventListener('click', () => {
         comentariosSection.style.display = 'none';
         comidaSection.style.display = 'none';
         mainContent.style.display = 'block';
     });
 
-    // Autenticación Local existente en tu código
     let currentUser = null;
     let isLoginMode = true;
     const authArea = document.getElementById('authArea');
@@ -1017,10 +986,8 @@
 
     function loadUserFromStorage() {
         const stored = localStorage.getItem('techlab_user');
-        if(stored) {
-            currentUser = JSON.parse(stored);
-            renderAuthUI();
-        }
+        if(stored) { currentUser = JSON.parse(stored); }
+        renderAuthUI();
     }
 
     function renderAuthUI() {
@@ -1035,33 +1002,29 @@
                         <div style="border-bottom:1px solid #2d3a6e; padding-bottom:8px;"><strong>${currentUser.name}</strong><br><span style="font-size:12px;">${currentUser.email}</span></div>
                         <a class="contact-item" href="mailto:brayanstivengallegohenao@gmail.com"><i class="fas fa-envelope"></i> Creador: Brayan Steven</a>
                         <a class="contact-item" href="https://wa.me/573128651104" target="_blank"><i class="fab fa-whatsapp"></i> +57 312 8651104</a>
-                        <a class="contact-item" href="https://www.facebook.com/share/1CfBYYrYQ6/" target="_blank"><i class="fab fa-facebook"></i> Facebook Oficial</a>
-                        <a class="contact-item" href="https://www.instagram.com/brayan_stiven_gallego_henao" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
                         <a class="contact-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                     </div>
                 </div>
             `;
-            const userMenuBtn = document.getElementById('userMenuBtn');
-            const dropdown = document.getElementById('dropdownMenu');
-            if(userMenuBtn) {
-                userMenuBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    dropdown.classList.toggle('show');
-                });
-                document.addEventListener('click', () => dropdown.classList.remove('show'));
-            }
-            const logoutBtn = document.getElementById('logoutBtn');
-            if(logoutBtn) logoutBtn.addEventListener('click', () => {
+            document.getElementById('userMenuBtn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('dropdownMenu').classList.toggle('show');
+            });
+            document.getElementById('logoutBtn').addEventListener('click', () => {
                 localStorage.removeItem('techlab_user');
                 currentUser = null;
                 renderAuthUI();
             });
         } else {
             authArea.innerHTML = `<button id="loginBtn"><i class="fas fa-user-circle"></i> Iniciar sesión</button>`;
-            const newLoginBtn = document.getElementById('loginBtn');
-            if(newLoginBtn) newLoginBtn.addEventListener('click', openModal);
+            document.getElementById('loginBtn').addEventListener('click', openModal);
         }
     }
+
+    document.addEventListener('click', () => {
+        const dm = document.getElementById('dropdownMenu');
+        if(dm) dm.classList.remove('show');
+    });
 
     function openModal() {
         isLoginMode = true;
@@ -1069,17 +1032,15 @@
         loginNameField.style.display = 'none';
         modalActionBtn.innerText = 'Ingresar';
         toggleAuthBtn.innerText = '¿Crear cuenta?';
-        loginEmail.value = '';
-        loginPassword.value = '';
+        loginEmail.value = ''; loginPassword.value = '';
         modal.style.display = 'flex';
     }
-
     function closeModal() { modal.style.display = 'none'; }
 
     function handleAuth() {
         const email = loginEmail.value.trim();
         const password = loginPassword.value.trim();
-        if(!email || !password) { alert("Completa correo y contraseña"); return; }
+        if(!email || !password) { alert("Completa los datos"); return; }
 
         if(isLoginMode) {
             const users = JSON.parse(localStorage.getItem('techlab_users')) || [];
@@ -1087,21 +1048,19 @@
             if(found) {
                 currentUser = found;
                 localStorage.setItem('techlab_user', JSON.stringify(found));
-                renderAuthUI();
-                closeModal();
-            } else { alert("Usuario no encontrado o clave incorrecta"); }
+                renderAuthUI(); closeModal();
+            } else { alert("Datos incorrectos"); }
         } else {
             const name = loginNameField.value.trim();
             if(!name) { alert("Escribe tu nombre"); return; }
             const users = JSON.parse(localStorage.getItem('techlab_users')) || [];
-            if(users.some(u => u.email === email)) { alert("El correo ya está registrado"); return; }
+            if(users.some(u => u.email === email)) { alert("El correo ya existe"); return; }
             const newUser = { name, email, password };
             users.push(newUser);
             localStorage.setItem('techlab_users', JSON.stringify(users));
             currentUser = newUser;
             localStorage.setItem('techlab_user', JSON.stringify(newUser));
-            renderAuthUI();
-            closeModal();
+            renderAuthUI(); closeModal();
         }
     }
 
@@ -1119,7 +1078,6 @@
     window.addEventListener('DOMContentLoaded', () => {
         initTooltips();
         loadUserFromStorage();
-        renderAuthUI();
     });
 </script>
 </body>
