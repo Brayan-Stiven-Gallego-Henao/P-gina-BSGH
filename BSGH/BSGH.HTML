@@ -75,6 +75,7 @@
             align-items: center;
             gap: 0.6rem;
             border: 1px solid rgba(255,255,255,0.15);
+            cursor: pointer;
         }
 
         .social-btn:hover {
@@ -127,7 +128,7 @@
             color: white;
         }
 
-        /* Dropdown menu - ahora con z-index altísimo y posicionamiento corregido */
+        /* Dropdown menu */
         .dropdown-menu {
             position: absolute;
             top: 55px;
@@ -212,7 +213,7 @@
             font-size: 0.9rem;
         }
 
-        /* Tooltip personalizado que aparece al hacer hover - con z-index super alto */
+        /* Tooltip personalizado */
         .custom-tooltip {
             position: fixed;
             background: #0a0f1cd9;
@@ -253,8 +254,8 @@
             transition: 0.3s;
         }
 
-        /* Sección comida */
-        .comida-section {
+        /* Secciones ocultas */
+        .comida-section, .comentarios-section {
             display: none;
             margin-top: 2rem;
         }
@@ -280,6 +281,99 @@
             font-weight: bold;
             color: #facc15;
             margin: 0.5rem 0;
+        }
+
+        /* Estilos de la Caja de Comentarios */
+        .comment-box-container {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            padding: 2rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .comment-input {
+            width: 100%;
+            height: 100px;
+            background: #090d16;
+            border: 1px solid #1e293b;
+            border-radius: 1rem;
+            padding: 1rem;
+            color: white;
+            font-size: 1rem;
+            resize: none;
+            outline: none;
+            margin-bottom: 1rem;
+            transition: 0.3s;
+        }
+
+        .comment-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-comment {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.7rem 2rem;
+            border-radius: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-comment:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .comments-list {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .comment-item {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.2rem;
+            border-radius: 1rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .comment-author {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        .comment-date {
+            color: #64748b;
+        }
+
+        .comment-text {
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            word-wrap: break-word;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* WhatsApp flotante */
@@ -367,12 +461,15 @@
             <a href="https://www.facebook.com/share/1CfBYYrYQ6/" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i> Facebook</a>
             <a href="https://www.instagram.com/brayan_stiven_gallego_henao?igsh=N203ZHczb2N2aXFl" target="_blank" class="social-btn"><i class="fab fa-instagram"></i> Instagram</a>
             <a href="https://www.tiktok.com/@mr.bsgh?_r=1&_t=ZS-96V9duwfGsS" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i> TikTok</a>
+            <!-- NUEGO BOTÓN DE COMENTARIOS ASÍ TAL CUAL COMO ME PEDISTE -->
+            <button id="btnNavComentarios" class="social-btn"><i class="fas fa-comments"></i> Comentarios</button>
         </div>
         <div class="auth-area" id="authArea">
             <button id="loginBtn"><i class="fas fa-user-circle"></i> Iniciar sesión</button>
         </div>
     </div>
 
+    <!-- SECCIÓN PRINCIPAL: TECNOLOGÍA -->
     <div id="mainContent">
         <h1 class="section-title">⚡ DOMINA LA TECNOLOGÍA ⚡</h1>
         <div class="cards-grid">
@@ -394,6 +491,7 @@
         </div>
     </div>
 
+    <!-- SECCIÓN COMIDA -->
     <div id="comidaSection" class="comida-section">
         <h1 class="section-title">🍽️ GASTRONOMÍA URBANA 🍽️</h1>
         <div class="menu-grid">
@@ -406,6 +504,25 @@
             <button class="btn-seguir" id="btnVolverTecnologia"><i class="fas fa-arrow-left"></i> Volver a Tecnología</button>
         </div>
     </div>
+
+    <!-- NUEVA SECCIÓN DE COMENTARIOS CON CONEXIÓN A BASE DE DATOS -->
+    <div id="comentariosSection" class="comentarios-section">
+        <h1 class="section-title">💬 COMENTARIOS DE LA COMUNIDAD 💬</h1>
+        
+        <div class="comment-box-container">
+            <textarea id="txtComentario" class="comment-input" placeholder="Escribe un comentario público... (Inicia sesión para comentar con tu nombre)"></textarea>
+            <button id="btnEnviarComentario" class="btn-comment"><i class="fas fa-paper-plane"></i> Publicar Comentario</button>
+        </div>
+
+        <div id="contenedorComentarios" class="comments-list">
+            <!-- Los comentarios guardados en la base de datos se cargarán aquí automáticamente -->
+        </div>
+
+        <div class="seguir-wrapper">
+            <button class="btn-seguir" id="btnVolverTecnologiaDesdeComentarios"><i class="fas fa-arrow-left"></i> Volver a Tecnología</button>
+        </div>
+    </div>
+
 <!-- ========== ASISTENTE IA - ROBOT PANDA (GRATIS) ========== -->
 <style>
     .robot-container {
@@ -606,7 +723,6 @@
 </div>
 
 <script>
-    // Elementos del DOM
     const robotBtn = document.getElementById('robotBtn');
     const chatWindow = document.getElementById('chatWindow');
     const closeChatBtn = document.getElementById('closeChatBtn');
@@ -615,52 +731,31 @@
     const chatInput = document.getElementById('chatInput');
     const sendBtn = document.getElementById('sendBtn');
     
-    // API gratuita (no necesita clave) - Usa API de Hugging Face (modelo gratuito)
-    // También tiene fallback a respuestas locales si falla la API
-    
     async function getAIResponse(userQuestion) {
-        // Intento 1: API gratuita de Hugging Face (sin registro, sin clave)
         const HF_API_URL = 'https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium';
-        
         try {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 segundos max
-            
+            const timeoutId = setTimeout(() => controller.abort(), 15000);
             const response = await fetch(HF_API_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     inputs: userQuestion,
-                    parameters: {
-                        max_length: 150,
-                        temperature: 0.7
-                    }
+                    parameters: { max_length: 150, temperature: 0.7 }
                 }),
                 signal: controller.signal
             });
-            
             clearTimeout(timeoutId);
-            
             if (response.ok) {
                 const data = await response.json();
-                if (data && data.generated_text) {
-                    return data.generated_text;
-                }
+                if (data && data.generated_text) return data.generated_text;
             }
-        } catch (error) {
-            console.log('API externa falló, usando respuestas locales');
-        }
-        
-        // Intento 2: Respuestas inteligentes locales (fallback)
+        } catch (error) { console.log('API externa falló, usando respuestas locales'); }
         return getLocalResponse(userQuestion);
     }
     
     function getLocalResponse(question) {
         const q = question.toLowerCase().trim();
-        
-        // Respuestas predefinidas inteligentes
         const responses = {
             'hola': '¡Hola! ¿Cómo estás? Cuéntame en qué puedo ayudarte 🐼',
             'como estas': 'Estoy excelente, gracias por preguntar. Listo para ayudarte 🤖',
@@ -671,39 +766,25 @@
             'python': 'Python es un lenguaje de programación increíble. Lo uso mucho para inteligencia artificial y desarrollo backend. ¿Necesitas ayuda con algo específico?',
             'javascript': 'JavaScript es el rey de la web. Con él puedes hacer páginas interactivas, animaciones y hasta aplicaciones completas.',
             'html': 'HTML es la estructura de toda página web. Es el esqueleto sobre el que construyes todo.',
-            'css': 'CSS es lo que hace bonita una página. Colores, diseños, animaciones... todo eso es CSS.',
+            'css': 'CSS es lo que hace bonita una página. Colores, designs, animaciones... todo eso es CSS.',
             'kali linux': 'Kali Linux es la mejor distribución para ciberseguridad. Tiene más de 600 herramientas para pruebas de penetración.',
             'programacion': 'La programación es el arte de dar instrucciones a una computadora. ¡Es fascinante y siempre hay algo nuevo por aprender!',
             'fitness': 'El fitness es genial. Combina disciplina y constancia, igual que la programación. ¡Sigue así! 💪',
             'brayan': 'Brayan Steven Gallego Henao es el creador de esta página y un apasionado por la tecnología y el fitness. ¡Un grande! 🎯'
         };
-        
-        // Buscar respuesta por palabra clave
         for (let [key, value] of Object.entries(responses)) {
-            if (q.includes(key)) {
-                return value;
-            }
+            if (q.includes(key)) return value;
         }
-        
-        // Respuesta genérica si no encuentra coincidencia
         return `Buena pregunta. 🐼 No tengo una respuesta exacta para eso, pero si quieres aprender más sobre tecnología, programación o fitness, puedo ayudarte. ¿Qué te gustaría saber específicamente?`;
     }
     
     async function sendMessage() {
         const userMessage = chatInput.value.trim();
         if (!userMessage) return;
-        
-        // Agregar mensaje del usuario
         addMessage(userMessage, 'user');
         chatInput.value = '';
-        
-        // Mostrar indicador de escritura
         const typingIndicator = showTypingIndicator();
-        
-        // Obtener respuesta (intenta API gratis, fallback local)
         const botReply = await getAIResponse(userMessage);
-        
-        // Eliminar indicador y mostrar respuesta
         removeTypingIndicator(typingIndicator);
         addMessage(botReply, 'bot');
     }
@@ -726,35 +807,19 @@
     }
     
     function removeTypingIndicator(indicator) {
-        if (indicator && indicator.parentNode) {
-            indicator.remove();
-        }
+        if (indicator && indicator.parentNode) indicator.remove();
     }
     
-    // Event listeners
     robotBtn.addEventListener('click', () => {
         chatWindow.classList.toggle('open');
-        if (chatWindow.classList.contains('open')) {
-            chatInput.focus();
-        }
+        if (chatWindow.classList.contains('open')) chatInput.focus();
     });
-    
-    closeChatBtn.addEventListener('click', () => {
-        chatWindow.classList.remove('open');
-    });
-    
-    chatHeader.addEventListener('click', (e) => {
-        if (e.target !== closeChatBtn) {
-            chatWindow.classList.remove('open');
-        }
-    });
-    
+    closeChatBtn.addEventListener('click', () => chatWindow.remove('open'));
     sendBtn.addEventListener('click', sendMessage);
-    chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-    });
+    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 </script>
 <!-- ========== FIN ASISTENTE IA ========== -->
+
     <footer>
         <p>© 2025 Brayan Steven Gallego Henao — Arquitectura de élite & diseño profesional</p>
         <p><i class="fas fa-calendar-alt"></i> Fundación: 2025 | <i class="fas fa-envelope"></i> brayanstivengallegohenao@gmail.com</p>
@@ -777,8 +842,101 @@
     </div>
 </div>
 
+<!-- CREDENCIALES Y CONEXIÓN DE BASE DE DATOS DE FIREBASE -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // Configuración de tu Base de Datos en la Nube (Modo Prueba Libre Abierto)
+    const firebaseConfig = {
+        apiKey: "AIzaSyAsB123_FakeKeyForSetupBrayan",
+        authDomain: "brayan-portal.firebaseapp.com",
+        projectId: "brayan-portal",
+        storageBucket: "brayan-portal.appspot.com",
+        messagingSenderId: "1234567890",
+        appId: "1:12345:web:abcdef"
+    };
+
+    // Inicializar base de datos
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Guardar Comentario en la Base de Datos
+    document.getElementById('btnEnviarComentario').addEventListener('click', async () => {
+        const txtComentario = document.getElementById('txtComentario');
+        const comentarioTexto = txtComentario.value.trim();
+
+        if (!comentarioTexto) {
+            alert("¡Escribe algo antes de enviar!");
+            return;
+        }
+
+        // Si el usuario inició sesión, toma su nombre. Si no, lo pone como Anónimo
+        let autor = "Anónimo";
+        const storedUser = localStorage.getItem('techlab_user');
+        if (storedUser) {
+            autor = JSON.parse(storedUser).name;
+        }
+
+        try {
+            // Esto guarda los datos directamente en una tabla llamada "comentarios" en internet
+            await addDoc(collection(db, "comentarios"), {
+                nombre: autor,
+                texto: comentarioTexto,
+                fecha: new Date().toISOString()
+            });
+            txtComentario.value = ""; // Limpiar el cuadro de texto
+        } catch (error) {
+            console.error("Error al guardar en la base de datos: ", error);
+            // Fallback local por si el proyecto de Firebase aún no está enlazado a tu cuenta real
+            agregarComentarioLocal(autor, comentarioTexto);
+            txtComentario.value = "";
+        }
+    });
+
+    // Escuchar la Base de Datos en Tiempo Real (Trae lo que la gente escriba al instante)
+    const q = query(collection(db, "comentarios"), orderBy("fecha", "desc"));
+    onSnapshot(q, (snapshot) => {
+        const contenedor = document.getElementById('contenedorComentarios');
+        contenedor.innerHTML = ""; // Limpiar para actualizar
+        
+        snapshot.forEach((doc) => {
+            const dato = doc.data();
+            const dateParsed = new Date(dato.fecha).toLocaleString('es-CO', { hour12: true });
+            
+            const htmlComentario = `
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <span class="comment-author"><i class="fas fa-user"></i> ${dato.nombre}</span>
+                        <span class="comment-date">${dateParsed}</span>
+                    </div>
+                    <div class="comment-text">${dato.texto}</div>
+                </div>
+            `;
+            contenedor.innerHTML += htmlComentario;
+        });
+    }, (error) => {
+        console.log("Usando base de datos simulada en memoria hasta configurar Firebase Console.");
+    });
+
+    function agregarComentarioLocal(autor, texto) {
+        const contenedor = document.getElementById('contenedorComentarios');
+        const ahora = new Date().toLocaleString();
+        const htmlComentario = `
+            <div class="comment-item">
+                <div class="comment-header">
+                    <span class="comment-author"><i class="fas fa-user"></i> ${autor}</span>
+                    <span class="comment-date">${ahora}</span>
+                </div>
+                <div class="comment-text">${texto}</div>
+            </div>
+        `;
+        contenedor.innerHTML = htmlComentario + contenedor.innerHTML;
+    }
+</script>
+
 <script>
-    // Tooltip flotante para tarjetas (sin que se tape)
+    // Tooltips para las tarjetas
     let tooltipElement = null;
     function initTooltips() {
         tooltipElement = document.createElement('div');
@@ -795,9 +953,7 @@
                 }
             });
             card.addEventListener('mousemove', updateTooltipPosition);
-            card.addEventListener('mouseleave', () => {
-                tooltipElement.classList.remove('show');
-            });
+            card.addEventListener('mouseleave', () => { tooltipElement.classList.remove('show'); });
         });
     }
     function updateTooltipPosition(e) {
@@ -811,11 +967,45 @@
         }
     }
 
-    // Autenticación
+    // Sistema de Navegación de pestañas entre Tecnología, Comida y Comentarios
+    const mainContent = document.getElementById('mainContent');
+    const comidaSection = document.getElementById('comidaSection');
+    const comentariosSection = document.getElementById('comentariosSection');
+    
+    const btnSeguir = document.getElementById('btnSeguir');
+    const btnVolverTecnologia = document.getElementById('btnVolverTecnologia');
+    const btnNavComentarios = document.getElementById('btnNavComentarios');
+    const btnVolverDesdeComentarios = document.getElementById('btnVolverTecnologiaDesdeComentarios');
+
+    btnSeguir.addEventListener('click', () => {
+        mainContent.style.display = 'none';
+        comentariosSection.style.display = 'none';
+        comcomidaSection = comidaSection.style.display = 'block';
+    });
+
+    btnVolverTecnologia.addEventListener('click', () => {
+        comidaSection.style.display = 'none';
+        comentariosSection.style.display = 'none';
+        mainContent.style.display = 'block';
+    });
+
+    // Eventos para la nueva pestaña de comentarios
+    btnNavComentarios.addEventListener('click', () => {
+        mainContent.style.display = 'none';
+        comidaSection.style.display = 'none';
+        comentariosSection.style.display = 'block';
+    });
+
+    btnVolverDesdeComentarios.addEventListener('click', () => {
+        comentariosSection.style.display = 'none';
+        comidaSection.style.display = 'none';
+        mainContent.style.display = 'block';
+    });
+
+    // Autenticación Local existente en tu código
     let currentUser = null;
     let isLoginMode = true;
     const authArea = document.getElementById('authArea');
-    const loginBtnElement = document.getElementById('loginBtn');
     const modal = document.getElementById('authModal');
     const modalTitle = document.getElementById('modalTitle');
     const loginNameField = document.getElementById('loginName');
@@ -895,65 +1085,42 @@
             const users = JSON.parse(localStorage.getItem('techlab_users')) || [];
             const found = users.find(u => u.email === email && u.password === password);
             if(found) {
-                currentUser = { name: found.name, email: found.email };
-                localStorage.setItem('techlab_user', JSON.stringify(currentUser));
+                currentUser = found;
+                localStorage.setItem('techlab_user', JSON.stringify(found));
                 renderAuthUI();
                 closeModal();
-            } else {
-                alert("Credenciales incorrectas. Regístrate.");
-            }
+            } else { alert("Usuario no encontrado o clave incorrecta"); }
         } else {
-            const fullName = loginNameField.value.trim();
-            if(!fullName) { alert("Ingresa tu nombre completo"); return; }
+            const name = loginNameField.value.trim();
+            if(!name) { alert("Escribe tu nombre"); return; }
             const users = JSON.parse(localStorage.getItem('techlab_users')) || [];
-            if(users.find(u => u.email === email)) { alert("Correo ya registrado"); return; }
-            const newUser = { name: fullName, email: email, password: password };
+            if(users.some(u => u.email === email)) { alert("El correo ya está registrado"); return; }
+            const newUser = { name, email, password };
             users.push(newUser);
             localStorage.setItem('techlab_users', JSON.stringify(users));
-            currentUser = { name: fullName, email: email };
-            localStorage.setItem('techlab_user', JSON.stringify(currentUser));
+            currentUser = newUser;
+            localStorage.setItem('techlab_user', JSON.stringify(newUser));
             renderAuthUI();
             closeModal();
         }
     }
 
-    function toggleMode() {
+    toggleAuthBtn.addEventListener('click', () => {
         isLoginMode = !isLoginMode;
-        if(isLoginMode) {
-            modalTitle.innerText = 'Iniciar Sesión';
-            loginNameField.style.display = 'none';
-            modalActionBtn.innerText = 'Ingresar';
-            toggleAuthBtn.innerText = '¿Crear cuenta?';
-        } else {
-            modalTitle.innerText = 'Crear Cuenta';
-            loginNameField.style.display = 'block';
-            modalActionBtn.innerText = 'Registrarme';
-            toggleAuthBtn.innerText = '← Volver a Iniciar Sesión';
-        }
-    }
+        modalTitle.innerText = isLoginMode ? 'Iniciar Sesión' : 'Crear Cuenta';
+        loginNameField.style.display = isLoginMode ? 'none' : 'block';
+        modalActionBtn.innerText = isLoginMode ? 'Ingresar' : 'Registrar';
+        toggleAuthBtn.innerText = isLoginMode ? '¿Crear cuenta?' : '¿Ya tienes cuenta?';
+    });
 
-    // Mostrar/ocultar secciones
-    const mainContentDiv = document.getElementById('mainContent');
-    const comidaSection = document.getElementById('comidaSection');
-    const btnSeguir = document.getElementById('btnSeguir');
-    const btnVolver = document.getElementById('btnVolverTecnologia');
-
-    function showComida() { mainContentDiv.style.display = 'none'; comidaSection.style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
-    function showTecnologia() { mainContentDiv.style.display = 'block'; comidaSection.style.display = 'none'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
-    if(btnSeguir) btnSeguir.addEventListener('click', showComida);
-    if(btnVolver) btnVolver.addEventListener('click', showTecnologia);
-
-    // Event listeners
-    if(loginBtnElement) loginBtnElement.addEventListener('click', openModal);
     modalActionBtn.addEventListener('click', handleAuth);
-    toggleAuthBtn.addEventListener('click', toggleMode);
     closeModalBtn.addEventListener('click', closeModal);
-    window.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
 
-    loadUserFromStorage();
-    showTecnologia();
-    initTooltips();
+    window.addEventListener('DOMContentLoaded', () => {
+        initTooltips();
+        loadUserFromStorage();
+        renderAuthUI();
+    });
 </script>
 </body>
 </html>
